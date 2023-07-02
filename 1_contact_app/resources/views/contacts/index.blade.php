@@ -9,6 +9,13 @@
         @if($message = session('message'))
             <div class="alert alert-success">
                 {{ $message }}
+                @if ($undo = session('undo'))
+                <form action="{{ $undo }}" method="POST" style="display: inline">
+                    @csrf 
+                    @method("DELETE")
+                    <button class="btn" type="submit">Undo</button>
+                </form>
+                @endif
             </div>
         @endif
       <div class="row">
