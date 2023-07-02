@@ -1,7 +1,7 @@
 @forelse($contacts as $key => $contact)
 
 <tr>
-    <th scope="row">{{ $key + 1 }}</th>
+    <th scope="row">{{ $contacts->firstItem() + $key }}</th>
     <td>{{ $contact->first_name }}</td>
     <td>{{ $contact->last_name }}</td>
     <td>{{ $contact->email }}</td>
