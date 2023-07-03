@@ -1,4 +1,4 @@
-<div class="row">
+<form class="row">
     <div class="col-md-6">
         <a href="{{ request()->fullUrlWithQuery(['trash' => false]) }}" class="btn {{ !request()->query('trash') ? 'text-primary' : 'text-secondary'}}">All</a>
         |
@@ -29,4 +29,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </form>
