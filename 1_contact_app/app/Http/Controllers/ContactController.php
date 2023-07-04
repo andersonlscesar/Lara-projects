@@ -14,26 +14,12 @@ class ContactController extends Controller
     public function index()
     {
         $query = Contact::query();
-        $company = request()->query('company_id');
-        $search = request()->query('search');
 
         if(request()->query('trash')) {
             $query->onlyTrashed();
         }
-
+        $contacts = $query->filterData(); // Scope para o filtro dos contatos
         $companies = Company::all();
-        $contacts = $query->with('company')
-                           ->when($company, function($query) use ($company) {
-                                 $query->where('company_id', $company);
-                            })
-                            ->where(function($query) use ($search){
-                               return $query
-                                    ->where('first_name', 'LIKE', "%$search%")
-                                    ->orWhere('last_name', 'LIKE', "%$search%")
-                                    ->orWhere('email', 'LIKE', "%$search%");
-                            })                            
-                            ->latest()
-                            ->paginate(15);
         return view('contacts.index', compact('contacts', 'companies'));
     }
 
