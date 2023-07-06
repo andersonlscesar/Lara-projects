@@ -8,15 +8,17 @@ trait FilterData
 
     /********************************************************
     *
+    *  @param Builder $query  
+                           
     *  Escopo para filtrar os dados do filtro dos contatos
     *                                                     
-    *  @param Builder $query                              
     *                                                     
     *
     ********************************************************/
 
     public function scopeFilterData(Builder $query)
     {
+        $sort = request()->query('sort');
         $company = request()->query('company_id');
         $search = request()->query('search');
         return $query->with('company')
@@ -29,8 +31,26 @@ trait FilterData
                                 ->orWhere('last_name', 'LIKE', "%$search%")
                                 ->orWhere('email', 'LIKE', "%$search%");
                         })                            
-                        ->latest()
+                        ->orderBy($this->sortable($sort)['column'], $this->sortable($sort)['direction'])
                         ->paginate(15); 
+    }
+
+
+    private function sortable($sort)
+    {
+        if (!is_null($sort)) {
+            $column = strpos($sort, "-") === 0 ? ltrim($sort, "-") : $sort;
+            $direction = strpos($sort, "-") === 0 ? "desc" : "asc";
+
+            return [
+                'column'    => $column,
+                'direction' => $direction
+            ];
+        }
+       return [
+            'column'    => 'id',
+            'direction' => 'desc'
+       ];
     }
     
 }
