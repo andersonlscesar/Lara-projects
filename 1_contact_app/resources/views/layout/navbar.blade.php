@@ -22,7 +22,7 @@
                 {{ Auth::user()->name }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="profile.html">Settings</a>
+                <a class="dropdown-item" href="{{ route('contacts.profile-information') }}">Profile</a>
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf 
                   @method("POST")
@@ -40,3 +40,5 @@
       </div>
     </div>
   </nav>
+
+

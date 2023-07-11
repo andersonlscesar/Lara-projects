@@ -12,7 +12,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-
                     @if (session('status') == 'verification-link-sent')
                     <div class="alert alert-success">
                         Verification link has been sent to your email
