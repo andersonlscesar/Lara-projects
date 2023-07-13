@@ -21,7 +21,7 @@ class CompanySeeder extends Seeder
             $company = [
                 'name'  => $faker->company(),
                 'created_at'    => now(),
-                'updated_at'    => now()
+                'updated_at'    => now(),
             ];
             $companies[] = $company;
         }
