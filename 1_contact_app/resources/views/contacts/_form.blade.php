@@ -71,6 +71,7 @@
                     <option value="{{ $company->id }}" {{ old('company_id', $contact->company->id ?? '') == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
                 @endforeach
               </select>
+              <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
               @error('company_id')
                 <div class="invalid-feedback">
                     {{ $message }}

@@ -16,9 +16,9 @@ class ContactController extends Controller
         $query = Contact::query();
 
         if(request()->query('trash')) {
-            $query->onlyTrashed();
+            $contacts = auth()->user()->contacts()->onlyTrashed();
         }
-        $contacts = $query->filterData(); // Scope para o filtro dos contatos
+        $contacts = auth()->user()->contacts()->filterData(); // Scope para o filtro dos contatos
         $companies = Company::all();
         return view('contacts.index', compact('contacts', 'companies'));
     }
@@ -38,7 +38,7 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        Contact::create($request->all());
+        $request->user()->contacts()->create($request->all());
         return redirect()->route('contacts.index')->with('message', 'Contact has been added');
     }
 

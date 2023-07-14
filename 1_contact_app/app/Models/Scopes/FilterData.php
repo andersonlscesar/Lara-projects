@@ -2,6 +2,7 @@
 namespace App\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\User;
 
 trait FilterData 
 {
@@ -53,4 +54,9 @@ trait FilterData
        ];
     }
     
+
+    public function scopeForUser(Builder $query, User $user)
+    {
+        return $query->whereBelongsTo($user);
+    }
 }
